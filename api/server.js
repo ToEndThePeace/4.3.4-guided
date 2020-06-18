@@ -12,11 +12,21 @@ server.get("/", (req, res) => {
 
 server.get("/hobbits", (req, res) => {
   Hobbits.getAll()
-    .then(hobbits => {
+    .then((hobbits) => {
       res.status(200).json(hobbits);
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json(error);
+    });
+});
+
+server.post("/hobbits", (req, res) => {
+  Hobbits.insert(req.body)
+    .then((saved) => {
+      res.status(201).json(saved);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
     });
 });
 
